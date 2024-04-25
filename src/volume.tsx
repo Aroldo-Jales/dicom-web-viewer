@@ -43,12 +43,46 @@ export default function useCornnerstoneVolume() {
         // Init Cornerstone and related libraries
         await initDemo();
 
-      
+        cornerstoneTools.addTool(PanTool);
+        cornerstoneTools.addTool(WindowLevelTool);
+        cornerstoneTools.addTool(StackScrollMouseWheelTool);
+        cornerstoneTools.addTool(ZoomTool);
+
+        
+        const toolGroup = ToolGroupManager.createToolGroup(toolGroupId)!;
+
+        // Add tools to the tool group
+        toolGroup.addTool(WindowLevelTool.toolName);
+        toolGroup.addTool(PanTool.toolName);
+        toolGroup.addTool(ZoomTool.toolName);
+        toolGroup.addTool(StackScrollMouseWheelTool.toolName);
 
 
-        // Get Cornerstone imageIds and fetch metadata into RAM
+        toolGroup.setToolActive(WindowLevelTool.toolName, {
+            bindings: [
+                {
+                    mouseButton: MouseBindings.Primary, // Left Click
+                },
+            ],
+        });
+        toolGroup.setToolActive(PanTool.toolName, {
+            bindings: [
+                {
+                    mouseButton: MouseBindings.Auxiliary, // Middle Click
+                },
+            ],
+        });
+        toolGroup.setToolActive(ZoomTool.toolName, {
+            bindings: [
+                {
+                    mouseButton: MouseBindings.Secondary, // Right Click
+                },
+            ],
+        });
+       
+        toolGroup.setToolActive(StackScrollMouseWheelTool.toolName)
 
-        // Instantiate a rendering engine
+
         const renderingEngineId = "myRenderingEngine";
         const renderingEngine = new RenderingEngine(renderingEngineId);
 
@@ -61,7 +95,7 @@ export default function useCornnerstoneVolume() {
             defaultOptions: {
                 orientation: Enums.OrientationAxis.SAGITTAL,
 
-                background: [0.0, 0, 0.0] as [number, number, number],
+                background: [250, 0, 0.0] as [number, number, number],
             },
         };
 
@@ -89,13 +123,11 @@ export default function useCornnerstoneVolume() {
             imageIds: imageIds
         });
 
-        // Set the volume to load
         volume.load();
 
-        // Set the volume on the viewport
+   
         viewport.setVolumes([{ volumeId }]);
 
-        // Render the image
         viewport.render();
 
     };

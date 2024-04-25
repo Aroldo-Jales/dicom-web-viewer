@@ -25,6 +25,9 @@ const theme = extendTheme({
 
 function App() {
 
+  const studyId="1.2.640.0.31017449.3.2.101.9.1454914.1230185" 
+  const serieId= "1.2.826.0.1.3680043.2.1125.1.12365926926080424273657575159788239"
+
 
   return (
     <ChakraProvider theme={theme}>
@@ -34,13 +37,23 @@ function App() {
       <Box as="main" display="flex" flexDirection="row" >
        
 
-        <Box w="100%" display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-          <Volume studyId="1.2.640.0.31017449.3.2.101.9.1454914.1230185" serieId= "1.2.826.0.1.3680043.2.1125.1.12365926926080424273657575159788239"/>
-          <StackBasic id="stack_1" data={{
-            studyId: "1.2.640.0.31017449.3.2.101.9.1454914.1230185",
-            serieId: "1.2.826.0.1.3680043.2.1125.1.12365926926080424273657575159788239"
+        <Box w="100%" display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+        <Box bg="#ddd">
+      <Heading>
+        Volume
+      </Heading>
+      <Volume serieId={serieId} studyId={studyId}/>
+    </Box>
+    <Box bg="#ddd">
+      <Heading>
+        Stack
+      </Heading>
+      <StackBasic id="stack_1" data={{
+            serieId:serieId, studyId:studyId
 
           }} />
+    </Box>
+         
        
 
 
